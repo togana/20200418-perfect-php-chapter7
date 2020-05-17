@@ -11,7 +11,7 @@ abstract class Controller
     protected $db_manager;
     protected $auth_actions = [];
 
-    public function __construction(Application $application)
+    public function __construct($application)
     {
         $this->controller_name = strtolower(substr(get_class($this), 0, -10));
 
@@ -27,7 +27,7 @@ abstract class Controller
         $this->action_name = $action;
 
         $action_method = $action . 'Action';
-        if (!method_exists($this, $action_name)) {
+        if (!method_exists($this, $action_method)) {
             $this->forward404();
         }
 
@@ -53,7 +53,7 @@ abstract class Controller
     {
         $defaults = [
             'request' => $this->request,
-            'base_url' => $this->require->getBaseUrl(),
+            'base_url' => $this->request->getBaseUrl(),
             'session' => $this->session,
         ];
 

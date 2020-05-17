@@ -71,7 +71,7 @@ abstract class Application
         return $this->db_manager;
     }
 
-    public function getContorollerDir()
+    public function getControllerDir()
     {
         return $this->getRootDir() . '/controllers';
     }
@@ -136,7 +136,7 @@ EOF
 
     public function runAction($controller_name, $action, $params = [])
     {
-        $controller_class = ucfirest($controller_name) . 'Controller';
+        $controller_class = ucfirst($controller_name) . 'Controller';
         $controller = $this->findController($controller_class);
         if ($controller === false) {
             throw new HttpNotFoundException($controller_class . ' controller is not found.');
@@ -150,16 +150,15 @@ EOF
     protected function findController($controller_class)
     {
         if (!class_exists($controller_class)) {
-            $controller_file = $this->getContorollerDir() . '/' . $controller_class . '.php';
-        }
-
-        if (!is_readable($controller_file)) {
-            return false;
-        } else {
-            require_once $controller_file;
-
-            if (!class_exists($controller_class)) {
+            $controller_file = $this->getControllerDir() . '/' . $controller_class . '.php';
+            if (!is_readable($controller_file)) {
                 return false;
+            } else {
+                require_once $controller_file;
+
+                if (!class_exists($controller_class)) {
+                    return false;
+                }
             }
         }
 
