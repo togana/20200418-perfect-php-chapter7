@@ -14,20 +14,20 @@ abstract class DbRepository
         $this->con = $con;
     }
 
-    public function execute($sq, $params = [])
+    public function execute($sql, $params=[])
     {
-        $stm = $this->con->prepare($sql);
+        $stmt = $this->con->prepare($sql);
         $stmt->execute($params);
 
         return $stmt;
     }
 
-    public function fetch($sql, $params = [])
+    public function fetch($sql, $params=[])
     {
         return $this->execute($sql, $params)->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function fetchAll($sql, $params = [])
+    public function fetchAll($sql, $params=[])
     {
         return $this->execute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }

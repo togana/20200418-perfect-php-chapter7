@@ -80,7 +80,7 @@ abstract class Controller
         if (!preg_match('#https_://#', $url)) {
             $protocol = $this->request->isSsl() ? 'https://' : 'http://';
             $host = $this->request->getHost();
-            $base_url = $this->request->getBaseUtl();
+            $base_url = $this->request->getBaseUrl();
 
             $url = $protocol . $host . $base_url . $url;
         }

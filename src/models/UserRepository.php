@@ -23,7 +23,7 @@ class UserRepository extends DbRepository
         return sha1($password . 'SecretKey');
     }
 
-    public function fetchBuUserName($user_name)
+    public function fetchByUserName($user_name)
     {
         $sql = "SELECT * FROM user WHERE user_name = :user_name";
         return  $this->fetch($sql, [
@@ -31,13 +31,13 @@ class UserRepository extends DbRepository
         ]);
     }
 
-    public function isUniwueUserName($user_name)
+    public function isUniqueUserName($user_name)
     {
         $sql = "SELECT COUNT(id) as count FROM user WHERE user_name = :user_name";
         $row = $this->fetch($sql, [
             ':user_name' => $user_name,
         ]);
 
-        return $row['count'] === 0;
+        return (int)$row['count'] === 0;
     }
 }
