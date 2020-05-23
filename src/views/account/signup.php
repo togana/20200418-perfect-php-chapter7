@@ -5,17 +5,25 @@
 <form action="<?php echo $base_url; ?>/account/register" method="post">
     <input type="hidden" name="_token" value="<?php echo $this->escape($_token); ?>" />
 
+    <?php if (isset($errors) && count($errors) > 0): ?>
+    <ul class="error_list">
+        <?php foreach ($errors as $error): ?>
+            <li><?= $this->escape($error); ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
+
     <table>
     <tr>
             <th>ユーザーID</th>
             <td>
-                <input type="text" name="user_name" value="" />
+                <input type="text" name="user_name" value="<?= $this->escape($user_name); ?>" />
             </td>
         </tr>
         <tr>
             <th>パスワード</th>
             <td>
-                <input type="password" name="password" value="" />
+                <input type="password" name="password" value="<?= $this->escape($password); ?>" />
             </td>
         </tr>
     </table>
